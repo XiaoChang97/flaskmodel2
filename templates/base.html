@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{# 用户html父模板 #}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}模板标题{% endblock %}</title>
+<style>
+    #head{
+        height: 80px;
+        background-color: aqua;
+    }
+    #head ul{
+        list-style: none;
+    }
+    #head ul li{
+        float: left;
+        width: 280px;
+        text-align: center;
+        font-size: 28px;
+        line-height: 80px;
+    }
+    #middle{
+        height: 700px;
+    }
+    #bottom{
+        background-color: burlywood;
+        height: 80px;
+        line-height: 50px;
+    }
+</style>
+ {% block myjs %}{% endblock %}
+ {% block mycss %}{% endblock %}
+</head>
+<body>
+<div id = 'head'>
+     <ul>
+        <li><a href='{{ '/' }}'>首页</a></li>
+        <li><a href='{{ '/show' }}'>用户信息</a></li>
+        <li><a href='{{ '/register' }}'>用户注册</a></li>
+        <li><a href='{{ '/login' }}'>用户登录</a></li>
+        <li><a href='{{ '/logout' }}'>退出登录</a></li>
+    </ul>
+</div>
+<div id = 'middle'>
+    {% block middle %}
+        模板中间部分
+    {% endblock %}
+</div>
+<div id = 'bottom'>
+    {% block bottom %}    {% endblock %}
+</div>
+</body>
+</html>

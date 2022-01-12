@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block mycss %}
+    <style>
+    #num{
+        color: red;
+        font-size: 20px;
+    }
+    </style>
+{% endblock %}
+
+{% block myjs %}
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        //  跳转删除路由地址js
+        function del(id) {
+        //    console.log(username)
+            var x = confirm('是否删除该买手')
+            if (x == true){
+                location.href = '{{url_for('user.delete')}}?id='+id
+            }
+        }
+        // 跳转修改路由地址js
+        function updata(id){
+            location.href = '/update_user?id='+id
+        }
+        //  跳转搜索路由地址js
+        jQuery(function($) {
+          //给所有A标签绑定点击触发事件
+          $('#search').click(function() {
+             let username = $("input[name='username']").val();
+             let level = $("select[name='level']").val();
+             let register_timeA =  $("input[name='register_timeA']").val();
+             let register_timeB = $("input[name='register_timeB']").val();
+             location.href = '{{url_for('user.search_user')}}?username='+username+'&level='+level+'&register_timeA='+register_timeA+'&register_timeB='+register_timeB
+          });
+        });
+</script>
+{% endblock %}
+
+{% block title %}用户查看页面{% endblock %}
+{% block middle %}
+    <h1>查看用户页面</h1>
+    {#
+    <form action='{{ url_for('user.show') }}' method="get">
+        用户名: <input type="text" name="username" placeholder="请输入用户名"><br><br>
+        买手等级: <select name="level">
+            <option value="金牌">金牌</option>
+            <option value="小金牌">小金牌</option>
+            <option value="专业">专业</option>
+            <option value="基础会员" selected="selected">基础会员</option>
+        </select><br><br>
+        注册时间: <br>起始：<input type="datetime-local" name="register_timeA">-- 结束：<input type="datetime-local" name="register_timeB">
+    <input type="submit" value="搜索"><br><br>
+    </form>
+     姓: <input type="text" name="search1" placeholder="请输入用户名"> <input type="button" value="搜索" id = "search">
+    #}
+    用户名: <input type="text" name="username" placeholder="请输入用户名"><br><br>
+        买手等级: <select name="level">
+            <option value="金牌">金牌</option>
+            <option value="小金牌">小金牌</option>
+            <option value="专业">专业</option>
+            <option value="基础会员" selected="selected">基础会员</option>
+        </select><br><br>
+        注册时间: <br>起始：<input type="datetime-local" name="register_timeA">-- 结束：<input type="datetime-local" name="register_timeB">
+    <input type="button" value="搜索" id = "search"><br><br>
+    <span id="num">当前买手用户数：{{ users | length }}</span>
+    <table border="1" cellspacing="0" width="30%">
+        <th>ID</th><th>用户名</th><th>等级</th><th>注册时间</th><th>操作</th>
+        {% for user in users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.level }}</td>
+                <td>{{ user.rdatetime }}</td>
+                <td>
+                    <a href="javascript:;" onclick="del('{{ user.id }}')">删除</a>
+                    <a href="javascript:;" onclick="updata('{{ user.id }}')">修改</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

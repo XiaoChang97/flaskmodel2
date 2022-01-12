@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block mycss %}
+    <style>
+    #tishi{
+        color: red;
+    }
+    </style>
+{% endblock %}
+
+
+{% block title %}修改用户信息页{% endblock %}
+
+{% block middle %}
+    <h1>修改用户信息</h1>
+    <form action={{ url_for('user.update') }} method="post" id="user" >
+        <p><input type="hidden" name="id" value={{ n.id }}></p>
+        <p>买手用户昵称：<input type="text" name="username" value={{ n.username }} required></p>
+        <p>买手登录密码：<input type="password" name="password" required></p>
+        <p>确认密码：<input type="password" name="password2" required></p>
+        <select name="level">
+            <option value="金牌" {% if n.level == '金牌' %} selected="selected" {% endif %}>金牌</option>
+            <option value="小金牌" {% if n.level == '小金牌' %} selected="selected" {% endif %}>小金牌</option>
+            <option value="专业" {% if n.level == '专业' %} selected="selected" {% endif %}>专业</option>
+            <option value="基础会员" {% if n.level == '基础会员' %} selected="selected" {% endif %}>基础会员</option>
+        </select>
+        <p><input type="submit" value="提交修改信息"></p>
+    </form>
+{% endblock %}
